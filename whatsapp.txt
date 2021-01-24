@@ -1,0 +1,36 @@
+from selenium import webdriver
+import time
+import threading
+import pickle
+
+
+options = webdriver.ChromeOptions();
+options.add_argument('--user-data-dir=./User_Data')
+driver = webdriver.Chrome(chrome_options=options)
+driver.get('https://web.whatsapp.com/')
+
+n = 1
+
+c = '1'
+
+def start():
+    time.sleep(10)
+    mychat = driver.find_element_by_xpath('//*[@id="pane-side"]/div[1]/div/div/div[1]')
+    time.sleep(2)
+    mychat.click()
+    time.sleep(2)
+
+
+def get_link():
+
+    chatlist = (driver.find_element_by_xpath('//*[@id="main"]/div[3]').text).split('\n')
+    a = chatlist[len(chatlist) - 2]
+    return a
+
+if __name__ == '__main__':
+    start()
+    get_link()
+
+
+
+

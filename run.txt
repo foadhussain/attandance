@@ -1,0 +1,60 @@
+import whatsapp as w
+import time
+from selenium import webdriver
+import threading
+import copy
+
+options = webdriver.ChromeOptions();
+options.add_argument('--user-data-dir=./User_GoogleData')
+driver = webdriver.Chrome(chrome_options=options)
+
+
+w.start()
+
+
+def operate(b):
+    driver.get(b)
+    time.sleep(10)
+    button = driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[3]/div/div[2]/div[3]/div/span/span')
+    button.click()
+    time.sleep(2)
+    join_button=driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]')
+    join_button.click()
+    time.sleep(2)
+    sidepanel_button = driver.find_element_by_xpath('//*[@id="ow3"]/div[1]/div/div[8]/div[3]/div[6]/div[3]/div/div[2]/div[3]')
+    sidepanel_button.click()
+    time.sleep(2)
+    p=0
+    while(p!=2):
+        chatbox = driver.find_element_by_xpath('//*[@id="ow3"]/div[1]/div/div[8]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[1]/div[1]/div[2]/textarea')
+        chatbox.send_keys('1607-17-735-103 present')
+        send_button = driver.find_element_by_xpath('//*[@id="ow3"]/div[1]/div/div[8]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[2]')
+        send_button.click()
+        chatbox = driver.find_element_by_xpath('//*[@id="ow3"]/div[1]/div/div[8]/div[3]/div[3]/div/div[2]/div[2]/div[2]/span[2]/div/div[3]/div[1]/div[1]/div[2]/textarea').clear()
+        time.sleep(5)
+        print(p)
+        p+=1
+
+
+
+
+def update():
+    b='1'
+    while(True):
+        value = w.get_link()
+        if(b!=value):
+            b = value
+            operate(b)
+
+update()
+
+
+
+
+
+
+
+
+
+
+
